@@ -1,0 +1,280 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "OAuthTokenAPI",
+    "description": "Summary about the new REST service.",
+    "x-lastModified": "Mar 02, 2017 10:07AM PST"
+  },
+  "host": "localhost:8886",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/oauth/v2/token": {
+      "get": {
+        "description": "Get Token",
+        "operationId": "get-oauth-v2-token",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "a OAuth2 to be returned",
+            "schema": {
+              "$ref": "#/definitions/OAuth2"
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/oauth/v2/tokenverify": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "$ref": "#/definitions/TokenVerifyResp"
+            },
+            "examples": {
+              "application/json": {
+                "jsonrpc": "2.0",
+                "result": {
+                  "client_id": "8gmr4zwzje4yxk37t97ncrjc",
+                  "token_type": "bearer",
+                  "grant_type": "password",
+                  "expires": "2012-01-19T02:20:38Z",
+                  "scope": "http://www.example.com",
+                  "user_context": "user12345",
+                  "extended": null
+                },
+                "error": {
+                  "message": "Invalid Access Token",
+                  "code": -2001,
+                  "error": {
+                    "error": 404,
+                    "error_description": "Invalid Access Token",
+                    "error_response": null
+                  }
+                },
+                "id": 1
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "format": ""
+          }
+        ],
+        "description": "Verify Token"
+      }
+    }
+  },
+  "definitions": {
+    "OAuth2": {
+      "type": "object",
+      "required": [
+        "access_token"
+      ],
+      "properties": {
+        "access_token": {
+          "type": "string"
+        },
+        "expires_in": {
+          "type": "integer"
+        },
+        "refresh_token": {
+          "type": "string"
+        }
+      }
+    },
+    "FetchAccessToken": {
+      "type": "object",
+      "properties": {
+        "jsonrpc": {
+          "type": "string",
+          "default": "2.0"
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "client_id": {
+              "type": "string",
+              "default": "8gmr4zwzje4yxk37t97ncrjc"
+            },
+            "token_type": {
+              "type": "string",
+              "default": "bearer"
+            },
+            "grant_type": {
+              "type": "string",
+              "default": "password"
+            },
+            "expires": {
+              "type": "string",
+              "format": "date-time",
+              "default": "2012-01-19T02:20:38Z"
+            },
+            "scope": {
+              "type": "string",
+              "default": "http://www.example.com"
+            },
+            "user_context": {
+              "type": "string",
+              "default": "user12345"
+            },
+            "extended": {
+              "type": "null"
+            }
+          }
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string",
+              "default": "Invalid Access Token"
+            },
+            "code": {
+              "type": "integer",
+              "default": -2001
+            },
+            "error": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "integer",
+                  "default": 404
+                },
+                "error_description": {
+                  "type": "string",
+                  "default": "Invalid Access Token"
+                },
+                "error_response": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+        "id": {
+          "type": "integer",
+          "default": 1
+        }
+      }
+    },
+    "TokenVerifyResp": {
+      "type": "object",
+      "properties": {
+        "jsonrpc": {
+          "type": "string",
+          "default": "2.0"
+        },
+        "result": {
+          "type": "object",
+          "properties": {
+            "client_id": {
+              "type": "string",
+              "default": "8gmr4zwzje4yxk37t97ncrjc"
+            },
+            "token_type": {
+              "type": "string",
+              "default": "bearer"
+            },
+            "grant_type": {
+              "type": "string",
+              "default": "password"
+            },
+            "expires": {
+              "type": "string",
+              "format": "date-time",
+              "default": "2012-01-19T02:20:38Z"
+            },
+            "scope": {
+              "type": "string",
+              "default": "http://www.example.com"
+            },
+            "user_context": {
+              "type": "string",
+              "default": "user12345"
+            },
+            "extended": {
+              "type": "null"
+            }
+          }
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string",
+              "default": "Invalid Access Token"
+            },
+            "code": {
+              "type": "integer",
+              "default": -2001
+            },
+            "error": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "integer",
+                  "default": 404
+                },
+                "error_description": {
+                  "type": "string",
+                  "default": "Invalid Access Token"
+                },
+                "error_response": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+        "id": {
+          "type": "integer",
+          "default": 1
+        }
+      }
+    }
+  }
+}
